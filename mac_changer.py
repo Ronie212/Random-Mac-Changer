@@ -1,5 +1,19 @@
+#!/usr/bin/env python
+
 import subprocess
 import optparse
+
+
+def parser():
+    parse = optparse.OptionParser()
+    parse.add_option("-i", "--interface", dest="Interface", help="This is a program develop to change mac address")
+    parse.add_option("-m", "--new_mac", dest="New_Mac_Address", help="New Mac Address!")
+    (options, arguments) = parse.parse_args()
+    if not options.Interface:
+        parse.error("[+] Hey you forgot to enter interface!")
+    elif not options.New_Mac_Address:
+        parse.error("[+] Hey you forgot to enter new mac address")
+    return options
 
 
 def mac_change(interface, new_mac):
@@ -18,12 +32,8 @@ def mac_change(interface, new_mac):
         quit()
 
 
-parse = optparse.OptionParser()
-
-parse.add_option("-i", "--interface", dest="Interface", help="This is a program develop to change mac address")
-parse.add_option("-m", "--new_mac", dest="New_Mac_Address", help="New Mac Address!")
-
-(options, arguments) = parse.parse_args()
-
-
+Options = parser()
 mac_change(options.Interface, options.New_Mac_Address)
+
+if parser:
+    print(f'In {options.Interface} new mac address is {options.New_Mac_Address}')
